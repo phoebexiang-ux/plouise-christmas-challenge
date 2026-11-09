@@ -189,6 +189,8 @@ button{font:inherit;color:inherit;cursor:pointer}
 .pd{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:14px 14px 18px;display:flex;flex-direction:column;gap:12px}
 .pd .sw{height:110px;border-radius:14px;position:relative;overflow:hidden;background:var(--g)}
 .pd .sw::after{content:"";position:absolute;inset:0;background:radial-gradient(120px 60px at 25% 20%,rgba(255,255,255,.6),transparent 70%)}
+.pd .ph{aspect-ratio:1/1;max-width:100%;border-radius:14px;overflow:hidden;background:var(--meta)}
+.pd .ph img{display:block;width:100%;height:100%;object-fit:cover}
 .pd .ty{font-weight:600;font-size:.64rem;letter-spacing:.14em;text-transform:uppercase;color:var(--mu)}
 .pd h3{font-size:.98rem;line-height:1.3;margin-top:2px}
 .sh-list{display:flex;flex-wrap:wrap;gap:6px;margin-top:auto}
@@ -390,18 +392,18 @@ document.getElementById('marks').innerHTML=marks.map(([d,l,c])=>{
 // products
 const SH={'Strawberry Shortcake':'#f7a3b9','Vanilla Snow Cream':'#f6ead6','Vanilla Snowcream':'#f6ead6','Pink Macaroon':'#f6b6cf','White Chocolate Raspberry':'#e9c6cf','Iced Gumdrop':'#b9a4f0','Strawberry Snowflake':'#ff8fa8'};
 const P=[
- ['Bundle','Obsessed For Bad Bitch Christmas Bundle',['Strawberry Shortcake','Vanilla Snow Cream'],'linear-gradient(135deg,#f7a3b9,#f6ead6)'],
- ['Gift set','What A Treat! Christmas Gift Set',['Pink Macaroon','White Chocolate Raspberry'],'linear-gradient(135deg,#f6b6cf,#e9c6cf 60%,#c2456b)'],
- ['8-piece gift set',"There's No Time Like The Present 8-Piece Beauty Gift Set",['Iced Gumdrop','Pink Macaroon','Vanilla Snowcream'],'linear-gradient(135deg,#b9a4f0,#f6b6cf,#f6ead6)'],
- ['Lip duo','Crystal Bad Bitch Energy Christmas Edition Lip Duo',['Iced Gumdrop','Strawberry Snowflake','Vanilla Snow Cream'],'linear-gradient(135deg,#b9a4f0,#ff8fa8,#f6ead6)'],
- ['Skincare gift set','Glazed For Days Skincare Gift Set',[],'linear-gradient(135deg,#ffd9c2,#f5c76b,#ffeef4)'],
- ['10-piece gift set','My Frosty Fairytale 10-Piece Beauty Gift Set',[],'linear-gradient(135deg,#bfe6ff,#e7d9ff,#ffffff)'],
- ['Advent calendar','What Glows Around 2026 Cosmetic Beauty Advent Calendar',[],'linear-gradient(135deg,#d9126f,#f5c76b,#8fe3c8)'],
- ['Lip set','Double the Dazzle Duo Lip Makeup Set',[],'linear-gradient(135deg,#ff5fa8,#ffc2dc)'],
- ['PR gift set','Crystal XL Lip Conditioner PR Gift Set',[],'linear-gradient(135deg,#ffe4ef,#ff9cc6,#d9126f)'],
- ['PR gift set','Crystal XL Stay Shining Lip Oil PR Gift Set',[],'linear-gradient(135deg,#f5c76b,#ff9cc6,#ffe4ef)']
+ ['Bundle','Obsessed For Bad Bitch Christmas Bundle',['Strawberry Shortcake','Vanilla Snow Cream'],'linear-gradient(135deg,#f7a3b9,#f6ead6)','images/obsessed-bundle.jpg'],
+ ['Gift set','What A Treat! Christmas Gift Set',['Pink Macaroon','White Chocolate Raspberry'],'linear-gradient(135deg,#f6b6cf,#e9c6cf 60%,#c2456b)','images/what-a-treat.jpg'],
+ ['8-piece gift set',"There's No Time Like The Present 8-Piece Beauty Gift Set",['Iced Gumdrop','Pink Macaroon','Vanilla Snowcream'],'linear-gradient(135deg,#b9a4f0,#f6b6cf,#f6ead6)','images/no-time-like-present.jpg'],
+ ['Lip duo','Crystal Bad Bitch Energy Christmas Edition Lip Duo',['Iced Gumdrop','Strawberry Snowflake','Vanilla Snow Cream'],'linear-gradient(135deg,#b9a4f0,#ff8fa8,#f6ead6)','images/crystal-lip-duo.jpg'],
+ ['Skincare gift set','Glazed For Days Skincare Gift Set',[],'linear-gradient(135deg,#ffd9c2,#f5c76b,#ffeef4)','images/glazed-for-days.jpg'],
+ ['10-piece gift set','My Frosty Fairytale 10-Piece Beauty Gift Set',[],'linear-gradient(135deg,#bfe6ff,#e7d9ff,#ffffff)','images/frosty-fairytale.jpg'],
+ ['Advent calendar','What Glows Around 2026 Cosmetic Beauty Advent Calendar',[],'linear-gradient(135deg,#d9126f,#f5c76b,#8fe3c8)','images/advent-calendar.jpg'],
+ ['Lip set','Double the Dazzle Duo Lip Makeup Set',[],'linear-gradient(135deg,#ff5fa8,#ffc2dc)','images/double-the-dazzle.jpg'],
+ ['PR gift set','Crystal XL Lip Conditioner PR Gift Set',[],'linear-gradient(135deg,#ffe4ef,#ff9cc6,#d9126f)','images/crystal-xl-conditioner.jpg'],
+ ['PR gift set','Crystal XL Stay Shining Lip Oil PR Gift Set',[],'linear-gradient(135deg,#f5c76b,#ff9cc6,#ffe4ef)','images/crystal-xl-lip-oil.jpg']
 ];
-document.getElementById('prods').innerHTML=P.map(([t,n,sh,g])=>'<article class="pd"><div class="sw" style="--g:'+g+'"></div><div><div class="ty">'+t+'</div><h3>'+esc(n)+'</h3></div>'+
+document.getElementById('prods').innerHTML=P.map(([t,n,sh,g,img])=>'<article class="pd">'+(img?'<div class="ph"><img src="'+img+'" alt="'+esc(n)+'" loading="lazy" width="720" height="720"></div>':'<div class="sw" style="--g:'+g+'"></div>')+'<div><div class="ty">'+t+'</div><h3>'+esc(n)+'</h3></div>'+
  (sh.length?'<div class="sh-list">'+sh.map(s=>'<span class="chip"><i style="--c:'+SH[s]+'"></i>'+s+'</span>').join('')+'</div>':'<div class="sh-list"><span class="chip"><i style="--c:#ff5fa8"></i>whole set counts</span></div>')+'</article>').join('');
 
 // leaderboard
