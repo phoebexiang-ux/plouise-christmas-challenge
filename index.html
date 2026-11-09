@@ -68,6 +68,8 @@ button{font:inherit;color:inherit;cursor:pointer}
 .gift>*{position:relative}
 .lbl{font-weight:600;font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:#7a3a5a}
 .big{font-weight:700;font-size:clamp(3.4rem,9vw,5rem);letter-spacing:-.04em;line-height:1;color:var(--ink)}
+.gift .big{margin-top:6px}
+.gift .lbl{position:relative;z-index:1}
 .gift .gp{color:#5c2d45;font-size:.92rem;margin-top:8px}
 .cd{display:flex;gap:10px;flex-wrap:wrap}
 .cd div{background:rgba(255,255,255,.72);border-radius:14px;padding:10px 12px;text-align:center;min-width:64px}
@@ -235,6 +237,8 @@ footer p{min-width:0;flex:1}
 body.editing [contenteditable]{outline:1.5px dashed rgba(214,60,134,.5);outline-offset:2px;border-radius:4px;cursor:text}
 body.editing [contenteditable]:focus{outline:2px solid var(--rose);background:rgba(255,255,255,.6)}
 body.editing{padding-bottom:90px}
+body.editing .gift canvas{display:none}
+body.editing .marq div{animation:none}
 </style>
 
 </head><body>
@@ -463,9 +467,9 @@ window.addEventListener('resize',()=>{size();draw()});
   document.body.classList.add('editing');
   const SEL='main h1,main h2,main h3,main p,main li,main q,main summary,main .kick,main .lbl,main .big,main .rk,main .amt,main .plus,main .gate,main .tk,main .idea,main .chk b,main .chk span,main .season .t span,.ann,.sign p,.sign>span,footer p';
   const skip=el=>el.closest('#prods,#mq,#cd,#marks,#fres,#rows,#empty,.edbar')||el.id==='dayt'||el.id==='cdl'||el.id==='upd'||el.id==='copied';
-  document.querySelectorAll(SEL).forEach(el=>{if(!skip(el))el.setAttribute('contenteditable','true')});
-  document.querySelectorAll('summary').forEach(s=>s.addEventListener('keydown',e=>{if(e.key===' '||e.key==='Enter')e.stopPropagation()}));
-  document.querySelectorAll('summary').forEach(s=>s.addEventListener('click',e=>{if(document.activeElement===s)e.preventDefault()}));
+  document.querySelectorAll('#faq details').forEach(d=>{d.open=true;const s=d.querySelector('summary');if(s&&!s.querySelector('.st')){const sp=document.createElement('span');sp.className='st';while(s.firstChild)sp.appendChild(s.firstChild);s.appendChild(sp)}s.addEventListener('click',e=>e.preventDefault())});
+  document.querySelectorAll(SEL.replace('main summary','main summary .st')).forEach(el=>{if(skip(el)||el.closest('[contenteditable]'))return;el.querySelectorAll('[contenteditable]').forEach(c=>c.removeAttribute('contenteditable'));el.setAttribute('contenteditable','true')});
+  document.querySelectorAll('[contenteditable]').forEach(el=>el.addEventListener('keydown',e=>e.stopPropagation()));
   const bar=document.createElement('div');bar.className='edbar';
   bar.innerHTML='<p><b>Edit mode</b> · Click any text with a dashed outline to change it. Product cards and the leaderboard can\'t be edited here.</p><button type="button" id="edcopy">Copy page code</button><button type="button" class="sec" id="edexit">Exit</button>';
   document.body.appendChild(bar);
