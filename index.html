@@ -226,6 +226,15 @@ footer .wrap{display:flex;gap:14px;align-items:baseline;flex-wrap:wrap}
 footer .logo{font-size:1rem}
 footer p{min-width:0;flex:1}
 [hidden]{display:none!important}img{max-width:100%}
+
+/* edit mode */
+.edbar{position:fixed;left:0;right:0;bottom:0;z-index:80;background:#121212;color:#fff;display:flex;gap:12px;align-items:center;flex-wrap:wrap;padding-block:12px calc(12px + env(safe-area-inset-bottom,0px));padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));font-size:.86rem}
+.edbar p{flex:1;min-width:0}
+.edbar button{border:none;border-radius:999px;padding:10px 20px;font-weight:600;background:var(--gold);color:#fff}
+.edbar button.sec{background:transparent;border:1.5px solid #fff}
+body.editing [contenteditable]{outline:1.5px dashed rgba(214,60,134,.5);outline-offset:2px;border-radius:4px;cursor:text}
+body.editing [contenteditable]:focus{outline:2px solid var(--rose);background:rgba(255,255,255,.6)}
+body.editing{padding-bottom:90px}
 </style>
 
 </head><body>
@@ -447,4 +456,38 @@ window.addEventListener('resize',()=>{size();draw()});
 })();
 </script>
 
+
+<script>
+(function(){
+  if(!/[?&]edit\b/.test(location.search)&&location.hash!=='#edit')return;
+  document.body.classList.add('editing');
+  const SEL='main h1,main h2,main h3,main p,main li,main q,main summary,main .kick,main .lbl,main .big,main .rk,main .amt,main .plus,main .gate,main .tk,main .idea,main .chk b,main .chk span,main .season .t span,.ann,.sign p,.sign>span,footer p';
+  const skip=el=>el.closest('#prods,#mq,#cd,#marks,#fres,#rows,#empty,.edbar')||el.id==='dayt'||el.id==='cdl'||el.id==='upd'||el.id==='copied';
+  document.querySelectorAll(SEL).forEach(el=>{if(!skip(el))el.setAttribute('contenteditable','true')});
+  document.querySelectorAll('summary').forEach(s=>s.addEventListener('keydown',e=>{if(e.key===' '||e.key==='Enter')e.stopPropagation()}));
+  document.querySelectorAll('summary').forEach(s=>s.addEventListener('click',e=>{if(document.activeElement===s)e.preventDefault()}));
+  const bar=document.createElement('div');bar.className='edbar';
+  bar.innerHTML='<p><b>Edit mode</b> · Click any text with a dashed outline to change it. Product cards and the leaderboard can\'t be edited here.</p><button type="button" id="edcopy">Copy page code</button><button type="button" class="sec" id="edexit">Exit</button>';
+  document.body.appendChild(bar);
+  document.getElementById('edexit').onclick=()=>{location.href=location.pathname};
+  function clean(){
+    const doc=document.documentElement.cloneNode(true);
+    doc.querySelector('.edbar')?.remove();
+    doc.querySelector('body').classList.remove('editing');
+    if(!doc.querySelector('body').className)doc.querySelector('body').removeAttribute('class');
+    doc.querySelectorAll('[contenteditable]').forEach(e=>e.removeAttribute('contenteditable'));
+    ['mq','cd','marks','prods','rows','fres'].forEach(id=>{const e=doc.querySelector('#'+id);if(e)e.innerHTML=''});
+    const ce=doc.querySelector('#copied');if(ce)ce.textContent='Tap to copy · tag @PLmakeupacademy in the video and the description';
+    doc.querySelectorAll('details[open]').forEach(d=>d.removeAttribute('open'));
+    const cv=doc.querySelector('#snow');if(cv){cv.removeAttribute('width');cv.removeAttribute('height')}
+    return '<!DOCTYPE html>\n'+doc.outerHTML;
+  }
+  document.getElementById('edcopy').onclick=function(){
+    const b=this,t=clean();
+    const done=()=>{b.textContent='Copied! Paste it into GitHub';setTimeout(()=>b.textContent='Copy page code',3000)};
+    const fb=()=>{const ta=document.createElement('textarea');ta.value=t;document.body.appendChild(ta);ta.select();try{document.execCommand('copy');done()}catch(e){}ta.remove()};
+    try{navigator.clipboard.writeText(t).then(done,fb)}catch(e){fb()}
+  };
+})();
+</script>
 </body></html>
