@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>P.Louise Christmas GMV Challenge</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=Permanent+Marker&display=swap">
+<style>
+/* Layout: Lucky-Egg-style challenge microsite in P.Louise colours — saturated pink hero with a string of fairy lights and a bauble, white rounded cards on blush, one deep-berry prize panel, marker-font section titles with dot eyebrows, sticky hashtag bar at the bottom. Single light look. */
+:root{
+  --bg:#fff1f7; --card:#ffffff; --line:#f4d3e2; --soft:#ffe3ef;
+  --ink:#1d0f16; --tx:#4a3a42; --mu:#8c6f7e;
+  --hero1:#f25c9f; --hero2:#ff9cc8;
+  --berry:#5a1238; --berry2:#7a1d4d;
+  --pink:#e0307a; --gold:#dfaf71; --goldd:#b98544; --butter:#ffe07a; --ice:#bfe6f7; --iced:#2f7fa6;
+  --ok:#3f8a4f; --no:#c62a3a;
+  --display:'Permanent Marker','Archivo',cursive;
+  --body:'Archivo',system-ui,-apple-system,'Segoe UI',sans-serif;
+  color-scheme:light;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{font-family:var(--body);background:var(--bg);color:var(--tx);line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden;font-size:15px;padding-bottom:76px}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:60;background:#fff}
+a{color:inherit}
+button{font:inherit;color:inherit;cursor:pointer}
+:focus-visible{outline:2.5px solid var(--berry);outline-offset:3px;border-radius:8px}
+.wrap{max-width:1100px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+section{scroll-margin-top:84px}
+h1,h2,h3{color:var(--ink);line-height:1.1;text-wrap:balance}
+
+/* nav */
+.nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;background:#fff;box-shadow:0 1px 0 var(--line)}
+.nav .wrap{display:flex;align-items:center;gap:14px;padding-block:10px}
+.logo{font-weight:900;font-size:1.25rem;letter-spacing:-.02em;color:var(--ink);text-decoration:none;flex:0 0 auto}
+.links{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;min-width:0;flex:1;justify-content:center}
+.links::-webkit-scrollbar{display:none}
+.links a{flex:0 0 auto;text-decoration:none;font-weight:700;font-size:.84rem;color:var(--berry);padding:8px 12px;border-radius:999px}
+.links a:hover,.links a.on{background:var(--soft)}
+.navcta{flex:0 0 auto;text-decoration:none;background:var(--pink);color:#fff;font-weight:800;font-size:.84rem;padding:10px 16px;border-radius:10px}
+.navcta:hover{background:var(--berry2)}
+@media(max-width:760px){.navcta{display:none}.links{justify-content:flex-start}}
+
+/* hero */
+.hero{position:relative;background:linear-gradient(160deg,var(--hero1),var(--hero2));color:#fff;overflow:hidden}
+.lights{position:absolute;inset:0 0 auto;height:34px;pointer-events:none}
+.lights svg{display:block;width:100%;height:34px}
+.hero canvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.hero .wrap{position:relative;display:grid;grid-template-columns:1.15fr .85fr;gap:28px;align-items:center;padding-block:64px 90px}
+.hero .wrap>*{min-width:0}
+@media(max-width:860px){.hero .wrap{grid-template-columns:1fr;padding-block:56px 80px}.bauble{width:min(78%,280px)}}
+.tagp{display:inline-flex;align-items:center;gap:6px;background:var(--berry);color:#fff;font-weight:800;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;padding:7px 14px;border-radius:999px}
+.hero h1{font-family:var(--display);font-weight:400;font-size:clamp(2.8rem,7.2vw,4.9rem);line-height:.98;margin:18px 0 18px;color:#fff;text-shadow:0 4px 0 rgba(90,18,56,.28)}
+.hero h1 .y{display:block;color:var(--butter)}
+.lead{font-size:1.12rem;font-weight:600;max-width:520px;color:#fff}
+.lead b{font-weight:800}
+.hrow{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:24px}
+.hash{display:flex;align-items:center;gap:6px;background:#fff;border-radius:14px;padding:7px 7px 7px 16px;box-shadow:0 6px 18px -8px rgba(90,18,56,.5);min-width:0}
+.hash b{color:var(--pink);font-weight:800;font-size:1.02rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.hash button{border:none;background:var(--ink);color:#fff;font-weight:800;font-size:.78rem;letter-spacing:.06em;padding:10px 14px;border-radius:10px;flex:0 0 auto}
+.join{text-decoration:none;background:var(--butter);color:var(--ink);font-weight:900;font-size:.95rem;padding:15px 22px;border-radius:14px;box-shadow:0 6px 0 var(--goldd)}
+.join:hover{transform:translateY(1px);box-shadow:0 5px 0 var(--goldd)}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}
+.chips span{background:rgba(255,255,255,.88);color:var(--berry);font-weight:700;font-size:.8rem;padding:7px 12px;border-radius:999px}
+.chips b{color:var(--pink)}
+.wave{position:absolute;left:0;right:0;bottom:-1px;height:48px;pointer-events:none}
+.wave svg{display:block;width:100%;height:48px}
+
+/* bauble */
+.bauble{position:relative;width:min(100%,380px);aspect-ratio:1/1.12;margin:0 auto}
+.bauble .hook{position:absolute;left:50%;top:0;width:34px;height:30px;transform:translateX(-50%);border:5px solid var(--goldd);border-bottom:none;border-radius:20px 20px 0 0}
+.bauble .cap{position:absolute;left:50%;top:22px;width:74px;height:34px;transform:translateX(-50%);background:linear-gradient(90deg,#c99652,#f3d49a 45%,#c99652);border-radius:8px 8px 4px 4px;box-shadow:inset 0 -6px 0 rgba(0,0,0,.08)}
+.bauble .ball{position:absolute;left:0;right:0;bottom:0;aspect-ratio:1/1;border-radius:50%;background:radial-gradient(circle at 32% 28%,#fff 0 6%,#ffd0e5 14%,#ff6fae 46%,#c9206f 82%,#8f1350);box-shadow:0 26px 50px -20px rgba(90,18,56,.65);display:grid;place-items:center}
+.bauble .ball::before{content:"";position:absolute;inset:8%;border-radius:50%;border:3px dashed rgba(255,255,255,.45)}
+.bauble .label{position:relative;width:62%;aspect-ratio:1/1;border-radius:50%;background:#fff;display:grid;place-content:center;text-align:center;box-shadow:0 0 0 7px var(--berry);padding:8px}
+.bauble .label small{display:block;font-weight:900;font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink)}
+.bauble .label strong{display:block;font-weight:900;font-size:clamp(2.2rem,6vw,3.1rem);letter-spacing:-.04em;color:var(--pink);line-height:1}
+.bauble .label em{display:block;font-style:normal;font-weight:800;font-size:.66rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink);margin-top:4px}
+.bauble .sparkle{position:absolute;width:16px;height:16px;background:var(--butter);clip-path:polygon(50% 0,62% 38%,100% 50%,62% 62%,50% 100%,38% 62%,0 50%,38% 38%)}
+
+/* stats band */
+.band{padding-block:34px 0}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+@media(max-width:700px){.stats{gap:8px}.stat{padding:14px 12px}.stat b{font-size:1.5rem}.stat span{font-size:.6rem;letter-spacing:.08em}}
+.stat{background:var(--card);border-radius:18px;padding:18px 20px;box-shadow:0 1px 0 var(--line)}
+.stat b{display:block;font-weight:900;font-size:2.2rem;letter-spacing:-.03em;color:var(--berry);line-height:1;font-variant-numeric:tabular-nums}
+.stat span{display:block;margin-top:6px;font-weight:800;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--mu)}
+.prog{margin-top:14px;background:var(--berry);color:#fff;border-radius:18px;padding:18px 22px;display:grid;grid-template-columns:auto 1fr;gap:18px;align-items:center}
+.prog>*{min-width:0}
+.prog .n{font-family:var(--display);font-size:2.6rem;color:var(--butter);line-height:1}
+.prog p{font-weight:800}
+.prog small{display:block;font-size:.78rem;color:#f2c9dc;font-weight:600;margin-top:4px}
+.pbar{height:10px;background:rgba(255,255,255,.16);border-radius:999px;margin-top:8px;overflow:hidden}
+.pbar i{display:block;height:100%;background:var(--butter);border-radius:999px}
+@media(max-width:560px){.prog{grid-template-columns:1fr;gap:6px}}
+.focus{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:14px}
+@media(max-width:760px){.focus{grid-template-columns:1fr}}
+.fc{background:var(--card);border-radius:18px;padding:16px 18px;border-left:5px solid var(--pink)}
+.fc:nth-child(2){border-left-color:var(--gold)}
+.fc:nth-child(3){border-left-color:var(--iced)}
+.fc small{display:block;font-weight:800;font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:var(--mu)}
+.fc p{font-weight:900;color:var(--ink);font-size:1.08rem;margin-top:6px;line-height:1.3}
+
+/* section heads */
+.sec{padding-block:64px 0}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;font-weight:800;font-size:.74rem;letter-spacing:.14em;text-transform:uppercase;color:var(--berry2)}
+.eyebrow::before{content:"";width:9px;height:9px;border-radius:50%;background:var(--pink);box-shadow:0 0 0 3px #ffc6dd}
+.sec h2{font-family:var(--display);font-weight:400;font-size:clamp(2rem,5vw,3rem);margin:8px 0 22px;text-transform:uppercase;letter-spacing:.01em}
+.sub{max-width:640px;margin:-10px 0 22px;font-size:1.02rem}
+
+/* steps */
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+@media(max-width:760px){.steps{grid-template-columns:1fr}}
+.step{background:var(--card);border-radius:18px;padding:22px}
+.step .n{font-family:var(--display);font-size:2.6rem;color:var(--pink);line-height:1}
+.step h3{font-size:1.15rem;font-weight:800;margin:10px 0 6px}
+.ideas-h{font-weight:900;color:var(--ink);font-size:1.05rem;margin:26px 0 12px}
+.ideas{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+@media(max-width:900px){.ideas{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:480px){.ideas{grid-template-columns:1fr}}
+.idea{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px}
+.idea b{display:block;color:var(--ink);font-weight:800;margin-bottom:4px}
+.idea p{font-size:.88rem}
+
+/* prizes */
+.pgrid{display:grid;grid-template-columns:1.1fr .9fr;gap:14px}
+.pgrid>*{min-width:0}
+@media(max-width:860px){.pgrid{grid-template-columns:1fr}}
+.dark{background:linear-gradient(165deg,var(--berry2),var(--berry));color:#fff;border-radius:22px;padding:26px}
+.dark .k{font-family:var(--display);font-size:.95rem;color:#ffc6dd}
+.dark .up{font-family:var(--display);font-size:clamp(3rem,8vw,4.6rem);line-height:1;color:var(--butter);margin:6px 0 10px}
+.dark p{color:#f6d7e5}
+.ladder{display:grid;gap:10px;margin-top:18px}
+.rung{display:grid;grid-template-columns:34px 1fr;gap:12px;align-items:center;background:rgba(255,255,255,.08);border-radius:14px;padding:12px 14px}
+.rung.top{background:rgba(255,224,122,.16);box-shadow:inset 0 0 0 2px var(--butter)}
+.rung i{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;font-style:normal;font-weight:900;background:#fff;color:var(--berry)}
+.rung.top i{background:var(--butter)}
+.rung b{display:block;font-weight:800}
+.rung small{display:block;color:#f2c9dc;font-size:.82rem}
+.side{display:grid;gap:14px;grid-template-columns:1fr 1fr;align-content:start}
+.side .c{background:var(--card);border-radius:22px;padding:22px}
+.side .c.wide{grid-column:1/-1}
+.side .c h3{font-weight:900;font-size:1.2rem;margin-bottom:6px}
+.side .c.y{background:var(--butter)}
+.side .c.y .k{font-family:var(--display);font-size:.8rem;color:var(--berry2)}
+.side .c.y h3{font-family:var(--display);font-weight:400;font-size:1.5rem;line-height:1.05;margin:4px 0 6px}
+.side .c.i{background:var(--ice)}
+.side .c.i h3{color:#123b50}
+.side .c.i p{color:#26566e}
+@media(max-width:480px){.side{grid-template-columns:1fr}}
+.tablecard{margin-top:14px;background:var(--card);border-radius:22px;padding:22px}
+.tablecard h3{font-weight:900;font-size:1.3rem;margin-bottom:10px}
+.tw{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:.92rem}
+th,td{text-align:left;padding:10px 8px;border-bottom:1px solid var(--line);white-space:nowrap}
+th{font-weight:800;color:var(--ink)}
+td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
+tr.hl td{background:#fff4c9}
+.tnote{font-size:.84rem;margin-top:12px}
+.tnote b{color:var(--ink)}
+
+/* rules */
+.rgrid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.rgrid>*{min-width:0}
+@media(max-width:760px){.rgrid{grid-template-columns:1fr}}
+.rows{background:var(--card);border-radius:22px;padding:8px 22px}
+.row{display:flex;justify-content:space-between;gap:16px;padding:13px 0;border-bottom:1px solid var(--line)}
+.row:last-child{border-bottom:none}
+.row>*{min-width:0}
+.row b{color:var(--ink);font-weight:700}
+.row span{font-weight:900;color:var(--pink);flex:0 0 auto}
+.row span.x{color:var(--no)}
+.pinkcard{background:linear-gradient(160deg,var(--hero1),#ff7fb6);color:#fff;border-radius:22px;padding:24px}
+.pinkcard .k{font-family:var(--display);font-size:.85rem;color:#ffe3ef}
+.pinkcard h3{font-family:var(--display);font-weight:400;font-size:clamp(1.6rem,4vw,2.2rem);color:#fff;line-height:1.05;margin:6px 0 10px}
+.pinkcard p{color:#fff}
+.tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+.tag{border:none;background:#fff;color:var(--pink);font-weight:900;padding:10px 14px;border-radius:12px}
+.tag:hover{background:var(--butter);color:var(--ink)}
+.tip{font-size:.8rem;margin-top:10px;color:#ffe3ef}
+.dd{display:grid;grid-template-columns:1.4fr 1fr;gap:14px;margin-top:14px}
+.dd>*{min-width:0}
+@media(max-width:760px){.dd{grid-template-columns:1fr}}
+.col{background:var(--card);border-radius:22px;padding:22px}
+.col h3{font-weight:900;font-size:1.2rem;margin-bottom:12px}
+.col ul{list-style:none;display:grid;gap:9px}
+.col li{display:flex;gap:10px;font-size:.93rem}
+.col li i{font-style:normal;font-weight:900;flex:0 0 auto}
+.col.do li i{color:var(--ok)}
+.col.dont li i{color:var(--no)}
+.warn{margin-top:14px;background:#fff6f6;border:1.5px solid #f1b9bf;border-radius:18px;padding:16px 20px;font-size:.9rem;color:#6b3038}
+.warn b{color:var(--no)}
+
+/* say */
+.lines{display:grid;gap:12px}
+.ln{display:grid;grid-template-columns:130px 1fr auto;gap:16px;align-items:center;background:var(--card);border-radius:18px;padding:16px 20px}
+.ln>*{min-width:0}
+.ln .k{font-weight:800;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--goldd)}
+.ln q{color:var(--ink);font-weight:600;quotes:"\201C" "\201D"}
+.copy{border:none;background:var(--ink);color:#fff;border-radius:10px;padding:9px 16px;font-weight:800;font-size:.78rem;letter-spacing:.06em}
+.copy:hover{background:var(--pink)}
+@media(max-width:640px){.ln{grid-template-columns:1fr}.copy{justify-self:start}}
+
+/* products */
+.prods{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:14px}
+.pd{background:var(--card);border-radius:20px;padding:12px 12px 16px;display:flex;flex-direction:column;gap:10px}
+.pd .ph{aspect-ratio:1/1;max-width:100%;border-radius:14px;overflow:hidden;background:var(--soft)}
+.pd .ph img{display:block;width:100%;height:100%;object-fit:cover}
+.pd .ty{font-weight:800;font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;color:var(--mu)}
+.pd h3{font-size:1rem;font-weight:800;line-height:1.3;margin-top:2px}
+.sh-list{display:flex;flex-wrap:wrap;gap:6px;margin-top:auto}
+.chip{display:inline-flex;align-items:center;gap:6px;font-size:.74rem;font-weight:600;border-radius:999px;padding:4px 10px 4px 5px;color:var(--ink);background:var(--bg)}
+.chip i{width:14px;height:14px;border-radius:50%;background:var(--c);border:1px solid rgba(0,0,0,.12)}
+
+/* leaderboard */
+.meta{font-size:.82rem;color:var(--mu);margin:-12px 0 8px}
+.board{background:var(--card);border-radius:22px;padding:20px}
+.bctl{display:flex;justify-content:flex-end;margin-bottom:16px}
+.bctl input{width:min(100%,320px);background:var(--bg);border:1.5px solid var(--line);border-radius:12px;padding:11px 14px;font:inherit;color:var(--ink)}
+.podium{display:grid;grid-template-columns:1fr 1.1fr 1fr;gap:12px;align-items:end}
+.pod{border-radius:18px;padding:18px 12px;text-align:center;background:var(--bg)}
+.pod.p1{background:#fff4c9;box-shadow:inset 0 0 0 2px var(--butter);padding-block:26px}
+.pod .md{display:inline-grid;place-items:center;width:34px;height:34px;border-radius:50%;font-weight:900;color:#fff;background:var(--mu)}
+.pod.p1 .md{background:var(--gold)}
+.pod.p2 .md{background:#a7a7b5}
+.pod.p3 .md{background:#c98e5a}
+.pod b{display:block;color:var(--ink);font-weight:800;margin-top:8px;overflow:hidden;text-overflow:ellipsis}
+.pod strong{display:block;color:var(--pink);font-weight:900;font-size:1.4rem;font-variant-numeric:tabular-nums}
+.pod small{color:var(--mu);font-size:.78rem}
+@media(max-width:560px){.podium{grid-template-columns:1fr}.pod.p1{order:-1}}
+.blist{margin-top:10px}
+.bl{display:grid;grid-template-columns:48px 1fr auto;gap:10px;align-items:center;padding:11px 4px;border-bottom:1px solid var(--line)}
+.bl>*{min-width:0}
+.bl .r{color:var(--iced);font-weight:900}
+.bl .h{font-weight:700;color:var(--ink);overflow:hidden;text-overflow:ellipsis}
+.bl .g{font-weight:900;color:var(--pink);font-variant-numeric:tabular-nums}
+.empty{text-align:center;padding:30px 12px}
+.empty b{display:block;font-family:var(--display);font-weight:400;font-size:1.7rem;color:var(--pink)}
+.empty p{max-width:460px;margin:8px auto 0}
+.findres{margin-top:14px}
+.res{background:var(--bg);border-radius:14px;padding:14px 16px}
+.res h3{font-size:1.02rem;font-weight:800}
+.res p{margin-top:4px}
+.meter{height:9px;border-radius:999px;background:var(--soft);margin-top:10px;overflow:hidden}
+.meter i{display:block;height:100%;background:var(--pink)}
+.fine{font-size:.8rem;color:var(--mu);margin-top:10px}
+
+/* faq */
+.faq{display:grid;grid-template-columns:1fr 1fr;gap:12px;align-items:start}
+@media(max-width:760px){.faq{grid-template-columns:1fr}}
+.faq>div{display:grid;gap:12px}
+details{background:var(--card);border-radius:16px;padding:16px 18px}
+summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;gap:14px;font-weight:900;color:var(--ink)}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";color:var(--pink);font-weight:900;font-size:1.2rem;line-height:1;flex:0 0 auto}
+details[open] summary::after{content:"–"}
+details p{margin-top:10px;font-size:.92rem}
+
+.sign{text-align:center;padding-block:64px 20px}
+.sign p{font-family:var(--display);font-size:clamp(1.8rem,5vw,2.6rem);color:var(--ink);line-height:1.1}
+.sign span{display:block;color:var(--mu);margin-top:8px;font-weight:600}
+footer{padding-block:10px 30px;text-align:center;color:var(--mu);font-size:.8rem}
+footer p{max-width:720px;margin:0 auto}
+
+/* sticky bar */
+.sbar{position:fixed;left:0;right:0;bottom:0;z-index:55;background:var(--ink);color:#fff;padding-block:10px calc(10px + env(safe-area-inset-bottom,0px))}
+.sbar .wrap{display:flex;align-items:center;gap:10px}
+.sbar b{color:var(--butter);font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
+.sbar button{border:none;background:var(--butter);color:var(--ink);font-weight:900;font-size:.78rem;letter-spacing:.06em;padding:9px 14px;border-radius:10px;flex:0 0 auto}
+.sbar a{margin-left:auto;flex:0 0 auto;text-decoration:none;background:var(--pink);color:#fff;font-weight:800;font-size:.84rem;padding:9px 14px;border-radius:10px}
+
+/* edit mode */
+.edbar{position:fixed;left:0;right:0;bottom:0;z-index:80;background:#121212;color:#fff;display:flex;gap:12px;align-items:center;flex-wrap:wrap;padding-block:12px calc(12px + env(safe-area-inset-bottom,0px));padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));font-size:.86rem}
+.edbar p{flex:1;min-width:0}
+.edbar button{border:none;border-radius:999px;padding:10px 20px;font-weight:700;background:var(--gold);color:#fff}
+.edbar button.sec2{background:transparent;border:1.5px solid #fff}
+body.editing [contenteditable]{outline:1.5px dashed rgba(224,48,122,.55);outline-offset:2px;border-radius:4px;cursor:text}
+body.editing [contenteditable]:focus{outline:2px solid var(--pink)}
+body.editing .sbar{display:none}
+body.editing .hero canvas{display:none}
+</style>
+</head><body>
+
+<nav class="nav"><div class="wrap">
+<a class="logo" href="#top">P.Louise</a>
+<div class="links"><a href="#how">How to join</a><a href="#prizes">Prizes</a><a href="#rules">Rules</a><a href="#say">Say this</a><a href="#lineup">Products</a><a href="#board">Leaderboard</a><a href="#faq">FAQ</a></div>
+<a class="navcta" href="https://creators.cruva.com/jvy1mi" target="_blank" rel="noopener">Join in Babe</a>
+</div></nav>
+
+<header class="hero" id="top">
+<div class="lights" aria-hidden="true"><svg viewBox="0 0 1200 34" preserveAspectRatio="none" id="lightsvg"></svg></div>
+<canvas id="snow" aria-hidden="true"></canvas>
+<div class="wrap">
+<div>
+<span class="tagp">❄ Christmas Shoppable Video GMV Challenge</span>
+<h1>Christmas Top <span class="y">Video Challenge</span></h1>
+<p class="lead">Hey babes! Our Christmas launch is <b>here</b> and we want you to sell it. The top 3 affiliates by Shoppable Video GMV win <b>cash + the P.Louise PR List</b>.</p>
+<div class="hrow">
+<div class="hash"><b>#plouise #TikTokMadeMeBuyIt</b><button type="button" data-copy="#plouise #TikTokMadeMeBuyIt">COPY</button></div>
+<a class="join" href="https://creators.cruva.com/jvy1mi" target="_blank" rel="noopener">Join in Babe</a>
+</div>
+<div class="chips"><span id="chip1">Nov 5 → Dec 25, 2026</span><span id="chip2"><b>–</b> days until the challenge closes</span></div>
+</div>
+<div class="bauble" aria-hidden="true">
+<div class="hook"></div><div class="cap"></div>
+<div class="ball"><div class="label"><small>Up to</small><strong>$600</strong><em>for 1st place</em></div></div>
+<i class="sparkle" style="left:2%;top:34%"></i><i class="sparkle" style="right:4%;top:24%;width:22px;height:22px"></i><i class="sparkle" style="right:10%;bottom:6%"></i>
+</div>
+</div>
+<div class="wave" aria-hidden="true"><svg viewBox="0 0 1200 48" preserveAspectRatio="none"><path d="M0 30 C300 60 900 0 1200 26 L1200 48 L0 48 Z" fill="#fff1f7"/></svg></div>
+</header>
+
+<main>
+<div class="wrap band">
+<div class="stats">
+<div class="stat"><b>$1,300</b><span>Total cash prizes</span></div>
+<div class="stat"><b>3</b><span>Winners + PR List spots</span></div>
+<div class="stat"><b>10</b><span>Eligible Christmas sets</span></div>
+</div>
+<div class="prog"><div class="n" id="pn">–</div><div><p id="pt">days to go until the challenge closes on Dec 25</p><div class="pbar"><i id="pf" style="width:10%"></i></div><small>Every eligible Shoppable Video sale from Nov 5 counts toward your total.</small></div></div>
+<div class="focus">
+<div class="fc"><small>Top prize</small><p>$600 cash + P.Louise PR List</p></div>
+<div class="fc"><small>To qualify for 1st</small><p>Hit $1,200 Shoppable Video GMV</p></div>
+<div class="fc"><small>What counts</small><p>Shoppable Video GMV on the Christmas launch</p></div>
+</div>
+</div>
+
+<section class="sec" id="how"><div class="wrap">
+<span class="eyebrow">How to join</span>
+<h2>Join. Post. Sell. Win.</h2>
+<div class="steps">
+<div class="step"><div class="n">1</div><h3>Click “Join in Babe” on Cruva</h3><p>Opt into the challenge on Cruva so your sales are tracked.</p></div>
+<div class="step"><div class="n">2</div><h3>Post Shoppable Videos</h3><p>Feature the P.Louise Christmas launch, with the correct product link in every video.</p></div>
+<div class="step"><div class="n">3</div><h3>Climb the leaderboard</h3><p>Rankings are based on total Shoppable Video GMV from eligible content posted during the challenge period.</p></div>
+</div>
+<p class="ideas-h">Stuck for ideas? Videos like these sell:</p>
+<div class="ideas">
+<div class="idea"><b>Swatch every flavour</b><p>Show each shade on the lips. Pigment and payoff up close.</p></div>
+<div class="idea"><b>Unbox a gift set</b><p>Open it on camera and show everything inside.</p></div>
+<div class="idea"><b>Gift guide</b><p>Who gets which set this Christmas, and why.</p></div>
+<div class="idea"><b>GRWM for the party</b><p>Get ready for a Christmas night out using the launch.</p></div>
+</div>
+</div></section>
+
+<section class="sec" id="prizes"><div class="wrap">
+<span class="eyebrow">Prizes</span>
+<h2>Top 3 win cash + PR List</h2>
+<div class="pgrid">
+<div class="dark">
+<div class="k">1st place · Christmas Top Video Challenge</div>
+<div class="up">Up to $600</div>
+<p>The affiliate with the highest Shoppable Video GMV on the Christmas launch wins. Each place has a minimum GMV to qualify.</p>
+<div class="ladder">
+<div class="rung top"><i>1</i><div><b>$600 cash + P.Louise PR List</b><small>Hit $1,200 GMV to qualify</small></div></div>
+<div class="rung"><i>2</i><div><b>$400 cash + P.Louise PR List</b><small>Hit $800 GMV to qualify</small></div></div>
+<div class="rung"><i>3</i><div><b>$300 cash + P.Louise PR List</b><small>Hit $600 GMV to qualify</small></div></div>
+</div>
+</div>
+<div class="side">
+<div class="c y wide"><div class="k">Every winner gets</div><h3>The P.Louise PR List</h3><p>All three winners join the P.Louise PR List on top of their cash prize.</p></div>
+<div class="c"><h3>One prize each</h3><p>If you place in more than one challenge, you get the reward for your highest placement.</p></div>
+<div class="c i"><h3>How you're paid</h3><p>Not via PayPal. Prizes go through an approved payment method from P.Louise.</p></div>
+</div>
+</div>
+<div class="tablecard">
+<h3>Prize table</h3>
+<div class="tw"><table>
+<thead><tr><th>Place</th><th class="num">Cash</th><th>Plus</th><th class="num">Minimum GMV</th></tr></thead>
+<tbody>
+<tr class="hl"><td>1st</td><td class="num">$600</td><td>P.Louise PR List</td><td class="num">$1,200</td></tr>
+<tr><td>2nd</td><td class="num">$400</td><td>P.Louise PR List</td><td class="num">$800</td></tr>
+<tr><td>3rd</td><td class="num">$300</td><td>P.Louise PR List</td><td class="num">$600</td></tr>
+</tbody></table></div>
+<p class="tnote"><b>Challenge period:</b> Nov 5 to Dec 25, 2026. <b>Taxes:</b> winners are responsible for any applicable taxes on their prize.</p>
+</div>
+</div></section>
+
+<section class="sec" id="rules"><div class="wrap">
+<span class="eyebrow">Rules</span>
+<h2>Make every video count</h2>
+<div class="rgrid">
+<div class="rows">
+<div class="row"><b>Show the product within the first 3 seconds</b><span>✓</span></div>
+<div class="row"><b>Be a minimum of 15 seconds</b><span>✓</span></div>
+<div class="row"><b>Be high quality and engaging</b><span>✓</span></div>
+<div class="row"><b>Feature genuine, non-spam content</b><span>✓</span></div>
+<div class="row"><b>Correct product link in every video</b><span>✓</span></div>
+<div class="row"><b>Tag @PLmakeupacademy in the video and description</b><span>✓</span></div>
+</div>
+<div class="pinkcard">
+<div class="k">Hashtags</div>
+<h3>Add both to every video</h3>
+<p>Tap to copy, then paste into your caption.</p>
+<div class="tags"><button class="tag" type="button" data-copy="#plouise">#plouise</button><button class="tag" type="button" data-copy="#TikTokMadeMeBuyIt">#TikTokMadeMeBuyIt</button><button class="tag" type="button" data-copy="@PLmakeupacademy">@PLmakeupacademy</button></div>
+<p class="tip" id="copied" role="status">Tap a tag to copy it.</p>
+</div>
+</div>
+<div class="dd">
+<div class="col do"><h3>Do's</h3><ul>
+<li><i>✓</i>Show the product clearly within the first 3 seconds</li>
+<li><i>✓</i>Show the product being applied</li>
+<li><i>✓</i>Ensure you have correct product links in each video</li>
+<li><i>✓</i>Tag @PLmakeupacademy in your video and video description</li>
+<li><i>✓</i>Ensure your background is clean and tidy</li>
+<li><i>✓</i>Ensure video is high quality and in good lighting (natural light is best)</li>
+<li><i>✓</i>Start the video with a verbal and visual hook</li>
+<li><i>✓</i>Mention the listing price first</li>
+<li><i>✓</i>Use the voucher line and the price disclaimer below</li>
+</ul></div>
+<div class="col dont"><h3>Don'ts</h3><ul>
+<li><i>✗</i>Avoid false claims. They risk refunds and damage trust.</li>
+<li><i>✗</i>Don't swear and don't use filters</li>
+<li><i>✗</i>Don't guarantee voucher savings or imply everyone receives them</li>
+</ul></div>
+</div>
+<div class="warn"><b>Won't count:</b> fully AI-generated content without clear human involvement, content where the product is not clearly shown, misleading or unapproved claims, fake purchases or refund abuse, duplicate video submissions, and low-quality, repetitive or spam content. P.Louise reserves the right to disqualify creators or remove content from the leaderboard where the system is being abused.</div>
+</div></section>
+
+<section class="sec" id="say"><div class="wrap">
+<span class="eyebrow">Say this</span>
+<h2>Pricing lines to use</h2>
+<div class="lines">
+<div class="ln"><span class="k">Pricing</span><q>Mention the listing price first, before any deal or voucher.</q><button class="copy" type="button" data-copy="Mention the listing price first.">COPY</button></div>
+<div class="ln"><span class="k">Vouchers</span><q>Some customers may also have TikTok Shop vouchers available at checkout.</q><button class="copy" type="button" data-copy="Some customers may also have TikTok Shop vouchers available at checkout.">COPY</button></div>
+<div class="ln"><span class="k">Disclaimer</span><q>Prices may change. Vouchers may vary by customer. Please note the final price is shown on the product detail page.</q><button class="copy" type="button" data-copy="Prices may change. Vouchers may vary by customer. Please note the final price is shown on the product detail page.">COPY</button></div>
+</div>
+</div></section>
+
+<section class="sec" id="lineup"><div class="wrap">
+<span class="eyebrow">Eligible products</span>
+<h2>The Christmas launch</h2>
+<p class="sub">Content and sales featuring any flavour from these sets count toward the challenge. Pick your favourite shade and make it sparkle.</p>
+<div class="prods" id="prods"></div>
+</div></section>
+
+<section class="sec" id="board"><div class="wrap">
+<span class="eyebrow">Leaderboard</span>
+<h2>More sales, higher rank</h2>
+<p class="meta" id="upd">Top 3 by Shoppable Video GMV win, once they hit the minimum for their place.</p>
+<div class="board">
+<form class="bctl" id="fform"><input id="fq" placeholder="Find your TikTok handle" autocomplete="off" aria-label="Find your TikTok handle"></form>
+<div id="podium"></div>
+<div class="blist" id="rows"></div>
+<div class="empty" id="empty" hidden><b>The board opens soon</b><p>Rankings appear here after the first data update. Keep posting. Every eligible sale since Nov 5 already counts.</p></div>
+<div class="findres" id="fres" aria-live="polite"></div>
+</div>
+<p class="fine">Standings are provisional. P.Louise confirms eligibility and compliance before any prize is paid.</p>
+</div></section>
+
+<section class="sec" id="faq"><div class="wrap">
+<span class="eyebrow">FAQ</span>
+<h2>Quick answers</h2>
+<div class="faq">
+<div>
+<details><summary><span class="st">Which sales count?</span></summary><p>Total Shoppable Video GMV from eligible videos featuring the Christmas launch products, posted between Nov 5 and Dec 25, 2026. Any flavour from the eligible sets counts.</p></details>
+<details><summary><span class="st">What if I'm #1 but under $1,200?</span></summary><p>Each place has a minimum: $1,200 for 1st, $800 for 2nd and $600 for 3rd. You need to hit the minimum for the place you finish in to claim that prize.</p></details>
+<details><summary><span class="st">Can I win more than once?</span></summary><p>No. Creators can receive one prize. If you place in more than one challenge, you get the reward for your highest placement.</p></details>
+</div>
+<div>
+<details><summary><span class="st">How are prizes paid?</span></summary><p>Not via PayPal. Payment goes through an approved method provided by P.Louise. Winners are responsible for any applicable taxes on their prize.</p></details>
+<details><summary><span class="st">Can I use AI to make my video?</span></summary><p>Fully AI-generated content without clear human involvement doesn't count. Show the real product, on camera, with you in it.</p></details>
+<details><summary><span class="st">Can I repost the same video?</span></summary><p>No. Duplicate submissions and repetitive or low-quality content are removed from the leaderboard.</p></details>
+</div>
+</div>
+</div></section>
+
+<div class="wrap sign"><p>The good heart always wins ♥</p><span>Go get that bag, babe!</span></div>
+</main>
+<footer><div class="wrap"><p>@PLmakeupacademy · #plouise #TikTokMadeMeBuyIt · P.Louise Christmas Shoppable Video GMV Challenge, Nov 5 – Dec 25, 2026.</p></div></footer>
+
+<div class="sbar"><div class="wrap"><b>#plouise #TikTokMadeMeBuyIt</b><button type="button" data-copy="#plouise #TikTokMadeMeBuyIt">COPY</button><a href="https://creators.cruva.com/jvy1mi" target="_blank" rel="noopener">Join in Babe</a></div></div>
+
+<script id="data" type="application/json">{"asof":"","creators":[]}</script>
+<script>
+(function(){
+const START=new Date('2026-11-05T08:00:00Z'), END=new Date('2026-12-26T07:59:59Z'), DAY=864e5, TOTAL=51;
+const TIERS=[{p:1,cash:600,min:1200},{p:2,cash:400,min:800},{p:3,cash:300,min:600}];
+let D={asof:'',creators:[]};try{D=JSON.parse(document.getElementById('data').textContent)}catch(e){}
+const fmt=n=>'$'+Number(n).toLocaleString('en-US',{minimumFractionDigits:0,maximumFractionDigits:2});
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const ORD=['1st','2nd','3rd'];
+
+// fairy lights
+(function(){const svg=document.getElementById('lightsvg');const cols=['#ffe07a','#ffffff','#bfe6f7','#5a1238','#ffd0e5'];let s='<path d="M0 6 Q 60 22 120 6 T 240 6 T 360 6 T 480 6 T 600 6 T 720 6 T 840 6 T 960 6 T 1080 6 T 1200 6" fill="none" stroke="#5a1238" stroke-width="2" opacity=".55"/>';for(let i=0;i<40;i++){const x=15+i*30;const y=6+Math.abs(Math.sin((x/120)*Math.PI))*10+6;s+='<ellipse cx="'+x+'" cy="'+y+'" rx="5" ry="7" fill="'+cols[i%cols.length]+'" stroke="rgba(90,18,56,.35)" stroke-width="1"/>'}svg.innerHTML=s})();
+
+// days
+function tick(){const now=new Date();const left=Math.max(0,Math.ceil((END-now)/DAY));const pct=Math.max(2,Math.min(100,(now-START)/(END-START)*100));
+ const pn=document.getElementById('pn'),pt=document.getElementById('pt'),c2=document.getElementById('chip2');
+ if(now<START){pn.textContent=Math.ceil((START-now)/DAY);pt.textContent='days until the challenge opens on Nov 5';c2.innerHTML='Starts <b>Nov 5</b>'}
+ else if(now>END){pn.textContent='0';pt.textContent='The challenge has closed. Winners coming soon.';c2.innerHTML='<b>Closed</b> · winners coming soon'}
+ else{pn.textContent=left;pt.textContent=(left===1?'day':'days')+' to go until the challenge closes on Dec 25';c2.innerHTML='<b>'+left+' days</b> until the challenge closes'}
+ document.getElementById('pf').style.width=pct+'%'}
+tick();setInterval(tick,60000);
+
+// products
+const SH={'Strawberry Shortcake':'#f7a3b9','Vanilla Snow Cream':'#f6ead6','Vanilla Snowcream':'#f6ead6','Pink Macaroon':'#f6b6cf','White Chocolate Raspberry':'#e9c6cf','Iced Gumdrop':'#9fd3ef','Strawberry Snowflake':'#ff8fa8'};
+const P=[
+ ['Bundle','Obsessed For Bad Bitch Christmas Bundle',['Strawberry Shortcake','Vanilla Snow Cream'],'obsessed-bundle'],
+ ['Gift set','What A Treat! Christmas Gift Set',['Pink Macaroon','White Chocolate Raspberry'],'what-a-treat'],
+ ['8-piece gift set',"There's No Time Like The Present 8-Piece Beauty Gift Set",['Iced Gumdrop','Pink Macaroon','Vanilla Snowcream'],'no-time-like-present'],
+ ['Lip duo','Crystal Bad Bitch Energy Christmas Edition Lip Duo',['Iced Gumdrop','Strawberry Snowflake','Vanilla Snow Cream'],'crystal-lip-duo'],
+ ['Skincare gift set','Glazed For Days Skincare Gift Set',[],'glazed-for-days'],
+ ['10-piece gift set','My Frosty Fairytale 10-Piece Beauty Gift Set',[],'frosty-fairytale'],
+ ['Advent calendar','What Glows Around 2026 Cosmetic Beauty Advent Calendar',[],'advent-calendar'],
+ ['Lip set','Double the Dazzle Duo Lip Makeup Set',[],'double-the-dazzle'],
+ ['PR gift set','Crystal XL Lip Conditioner PR Gift Set',[],'crystal-xl-conditioner'],
+ ['PR gift set','Crystal XL Stay Shining Lip Oil PR Gift Set',[],'crystal-xl-lip-oil']
+];
+document.getElementById('prods').innerHTML=P.map(([t,n,sh,img])=>'<article class="pd"><div class="ph"><img src="../images/'+img+'.jpg" alt="'+esc(n)+'" loading="lazy" width="720" height="720"></div><div><div class="ty">'+t+'</div><h3>'+esc(n)+'</h3></div><div class="sh-list">'+(sh.length?sh.map(s=>'<span class="chip"><i style="--c:'+SH[s]+'"></i>'+s+'</span>').join(''):'<span class="chip"><i style="--c:#e0307a"></i>Whole set counts</span>')+'</div></article>').join('');
+
+// leaderboard
+const list=(D.creators||[]).map(c=>({name:String(c.name||'').replace(/^@/,''),gmv:+c.gmv||0})).sort((a,b)=>b.gmv-a.gmv);list.forEach((c,i)=>c.rank=i+1);
+if(D.asof)document.getElementById('upd').textContent='Last updated: '+D.asof+'. Top 3 by Shoppable Video GMV win, once they hit the minimum for their place.';
+function render(q){const pod=document.getElementById('podium'),rows=document.getElementById('rows'),empty=document.getElementById('empty');
+ if(!list.length){pod.innerHTML='';rows.innerHTML='';empty.hidden=false;return}empty.hidden=true;
+ const f=q?list.filter(c=>c.name.toLowerCase().includes(q)):list;
+ const top=q?[]:list.slice(0,3);
+ pod.innerHTML=top.length?'<div class="podium">'+[top[1],top[0],top[2]].filter(Boolean).map(c=>'<div class="pod p'+c.rank+'"><span class="md">'+c.rank+'</span><b>@'+esc(c.name)+'</b><strong>'+fmt(c.gmv)+'</strong><small>Shoppable Video GMV</small></div>').join('')+'</div>':'';
+ const rest=q?f:list.slice(3);
+ rows.innerHTML=rest.map(c=>'<div class="bl"><span class="r">#'+c.rank+'</span><span class="h">@'+esc(c.name)+'</span><span class="g">'+fmt(c.gmv)+'</span></div>').join('')||(q?'<p class="fine">No creator matches that handle.</p>':'');
+}
+render('');
+const fq=document.getElementById('fq');
+fq.addEventListener('input',()=>{const q=fq.value.trim().toLowerCase().replace(/^@/,'');render(q);show(q)});
+document.getElementById('fform').addEventListener('submit',e=>e.preventDefault());
+function show(q){const out=document.getElementById('fres');if(!q||!list.length){out.innerHTML='';return}
+ const c=list.find(c=>c.name.toLowerCase()===q);if(!c){out.innerHTML='';return}
+ const t=TIERS.find(t=>t.p===c.rank)||TIERS[2];const pct=Math.min(100,c.gmv/t.min*100);
+ const msg=c.rank<=3?(c.gmv>=t.min?'You\'re in '+ORD[c.rank-1]+' place and you\'ve hit the minimum. Keep posting to hold your spot.':'You\'re in '+ORD[c.rank-1]+' place. Sell '+fmt(t.min-c.gmv)+' more to hit the '+fmt(t.min)+' minimum.'):'You\'re #'+c.rank+'. '+fmt(Math.max(0,list[2].gmv-c.gmv)+.01)+' more puts you in the top 3. 3rd place needs at least $600.';
+ out.innerHTML='<div class="res"><h3>@'+esc(c.name)+' · #'+c.rank+' · '+fmt(c.gmv)+'</h3><p>'+msg+'</p><div class="meter"><i style="width:'+pct+'%"></i></div></div>'}
+
+// copy
+function copy(text,done){const fb=()=>{const ta=document.createElement('textarea');ta.value=text;document.body.appendChild(ta);ta.select();try{document.execCommand('copy');done()}catch(e){}ta.remove()};try{navigator.clipboard.writeText(text).then(done,fb)}catch(e){fb()}}
+document.querySelectorAll('[data-copy]').forEach(b=>b.addEventListener('click',()=>copy(b.dataset.copy,()=>{const o=b.textContent;if(b.classList.contains('tag')){document.getElementById('copied').textContent='Copied '+b.dataset.copy}else{b.textContent='COPIED';setTimeout(()=>b.textContent=o,1500)}})));
+
+// nav highlight
+const secs=[...document.querySelectorAll('main section[id]')],links=[...document.querySelectorAll('.links a')];
+function hl(){let cur='';secs.forEach(s=>{if(s.getBoundingClientRect().top<120)cur=s.id});links.forEach(a=>a.classList.toggle('on',a.getAttribute('href')==='#'+cur))}
+window.addEventListener('scroll',hl,{passive:true});hl();
+
+// snow
+const cv=document.getElementById('snow'),cx=cv.getContext('2d'),reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;let fl=[],W=0,H=0;
+function size(){const r=cv.getBoundingClientRect(),d=devicePixelRatio||1;W=r.width;H=r.height;cv.width=W*d;cv.height=H*d;cx.setTransform(d,0,0,d,0,0);fl=Array.from({length:Math.round(W*H/7000)},()=>({x:Math.random()*W,y:Math.random()*H,r:Math.random()*2.2+.6,v:Math.random()*.5+.2,d:Math.random()*6.3}))}
+function draw(){cx.clearRect(0,0,W,H);for(const f of fl){cx.beginPath();cx.arc(f.x,f.y,f.r,0,7);cx.fillStyle='rgba(255,255,255,'+(.55+f.r/6)+')';cx.fill()}}
+function step(){for(const f of fl){f.y+=f.v;f.d+=.01;f.x+=Math.sin(f.d)*.3;if(f.y>H+4){f.y=-4;f.x=Math.random()*W}}draw();requestAnimationFrame(step)}
+size();draw();if(!reduce)requestAnimationFrame(step);addEventListener('resize',()=>{size();draw()});
+})();
+</script>
+
+<script>
+(function(){
+  if(!/[?&]edit\b/.test(location.search)&&location.hash!=='#edit')return;
+  document.body.classList.add('editing');
+  const SEL='.tagp,.hero h1,.lead,.hash b,.stat b,.stat span,.prog small,.fc small,.fc p,main .eyebrow,main h2,main h3,main p,main li,main td,main th,main .row b,main .k,main .up,main .rung b,main .rung small,main .idea b,main q,main summary .st,.sign span,footer p,.sbar b';
+  const skip=el=>el.closest('#prods,#podium,#rows,#empty,#fres,.edbar,.bauble,#chip1,#chip2')||['pn','pt','upd','copied'].includes(el.id);
+  document.querySelectorAll('#faq details').forEach(d=>{d.open=true;d.querySelector('summary').addEventListener('click',e=>e.preventDefault())});
+  document.querySelectorAll(SEL).forEach(el=>{if(skip(el)||el.closest('[contenteditable]'))return;el.querySelectorAll('[contenteditable]').forEach(c=>c.removeAttribute('contenteditable'));el.setAttribute('contenteditable','true')});
+  document.querySelectorAll('[contenteditable]').forEach(el=>el.addEventListener('keydown',e=>e.stopPropagation()));
+  const bar=document.createElement('div');bar.className='edbar';
+  bar.innerHTML='<p><b>Edit mode</b> · Click any text with a dashed outline to change it. Product cards and the leaderboard can\'t be edited here.</p><button type="button" id="edcopy">Copy page code</button><button type="button" class="sec2" id="edexit">Exit</button>';
+  document.body.appendChild(bar);
+  document.getElementById('edexit').onclick=()=>{location.href=location.pathname};
+  function clean(){
+    const doc=document.documentElement.cloneNode(true);
+    doc.querySelector('.edbar')?.remove();
+    const b=doc.querySelector('body');b.classList.remove('editing');if(!b.className)b.removeAttribute('class');
+    doc.querySelectorAll('[contenteditable]').forEach(e=>e.removeAttribute('contenteditable'));
+    ['prods','podium','rows','fres','lightsvg'].forEach(id=>{const e=doc.querySelector('#'+id);if(e)e.innerHTML=''});
+    const ce=doc.querySelector('#copied');if(ce)ce.textContent='Tap a tag to copy it.';
+    doc.querySelectorAll('details[open]').forEach(d=>d.removeAttribute('open'));
+    doc.querySelectorAll('.links a.on').forEach(a=>a.classList.remove('on'));
+    const cv=doc.querySelector('#snow');if(cv){cv.removeAttribute('width');cv.removeAttribute('height')}
+    return '<!DOCTYPE html>\n'+doc.outerHTML;
+  }
+  document.getElementById('edcopy').onclick=function(){const b=this,t=clean();const done=()=>{b.textContent='Copied! Paste it into GitHub';setTimeout(()=>b.textContent='Copy page code',3000)};const fb=()=>{const ta=document.createElement('textarea');ta.value=t;document.body.appendChild(ta);ta.select();try{document.execCommand('copy');done()}catch(e){}ta.remove()};try{navigator.clipboard.writeText(t).then(done,fb)}catch(e){fb()}};
+})();
+</script>
+</body></html>
